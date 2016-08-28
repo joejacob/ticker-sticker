@@ -1,5 +1,5 @@
 {
-  "name": "pop stock",
+  "name": "ticker sticker",
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "On-hover information for stock references on webpages",
@@ -10,26 +10,23 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": [
-      "src/bg/background.js", "js/jquery/jquery.min.js", "js/ddp/meteor-ddp.js"
-    ],
-    "persistent": false
+    "page": "background.html",
+    "scripts": ["scripts/background.js"],
+    "persistent": true
   },
-  "options_page": "src/options/index.html",
   "permissions": [
-    "contextMenus",
-    "cookies",
+    "debugger",
+    "storage",
     "http://*/*",
     "https://*/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "http://*/*", 
+        "https://*/*"
       ],
-      "js": [
-        "src/inject/inject.js"
-      ]
+      "js": []
     }
   ]
 }
