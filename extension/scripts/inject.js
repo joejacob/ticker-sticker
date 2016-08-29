@@ -3,16 +3,33 @@ var tickers = [
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
-	console.log('DOMContentLoaded');
+	// stores any tickers that have already been discovered
+	tickersFound = {};
 
-	// search through text of DOM
-	var items = document.body.getElementsByTagName("*");
-	for (var i = items.length; i--;) {
-		text = items[i].textContent;
-		console.log(text);
+	// search through DOM for text nodes
+	var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+
+	while(walk.nextNode()) {
+		var currTextNode = walk.currentNode();
+		var nodeText = currTextNode.parentNode.textContent;
+		var tickerFound = false;
+		//console.log(nodeText);
+
+		var nodeTextArr = nodeText.split(/(\s+)/);
+		for(var i = 0; i < nodeTextArr.length; i++) {
+			if (tickers.indexOf(nodeTextArr[i]) > -1) {
+				// create ticker box element
+				tickerFound = true;
+				//console.log("IM A TICKER: " + nodeTextArr[i]);
+			}
+		}
+
+		if (tickerFound) {
+			var newNodeText = nodeTextArr.join()
+
+		}
 	}
 });
-
 /*
 - get the innermost text node with the text content
 - 
