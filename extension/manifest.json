@@ -26,7 +26,8 @@
         "http://*/*", 
         "https://*/*"
       ],
-      "js": ["scripts/inject.js"],
+      "css": ["css/bootstrap.min.css", "css/custom.css"],
+      "js": ["js/bootstrap.min.js", "js/jquery-3.1.0.js", "scripts/inject.js"],
       "run_at": "document_start"
     }
   ]

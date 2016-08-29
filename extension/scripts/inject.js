@@ -4,32 +4,50 @@ var tickers = [
 
 document.addEventListener('DOMContentLoaded', function() {
 	// stores any tickers that have already been discovered
-	tickersFound = {};
+	var tickersCreated = new Object();
 
 	// search through DOM for text nodes
 	var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
 
 	while(walk.nextNode()) {
-		var currTextNode = walk.currentNode();
+		var currTextNode = walk.currentNode;
 		var nodeText = currTextNode.parentNode.textContent;
 		var tickerFound = false;
-		//console.log(nodeText);
 
 		var nodeTextArr = nodeText.split(/(\s+)/);
 		for(var i = 0; i < nodeTextArr.length; i++) {
-			if (tickers.indexOf(nodeTextArr[i]) > -1) {
+			if (nodeTextArr[i] in tickersCreated) {
+				tickerFound = true;
+				nodeTextArr[i] = tickersCreated[nodeTextArr[i]];
+			} else if (tickers.indexOf(nodeTextArr[i]) > -1) {
 				// create ticker box element
 				tickerFound = true;
-				//console.log("IM A TICKER: " + nodeTextArr[i]);
+
+				// update tickersCreated
+				tickersCreated[nodeTextArr[i]] = makeTickerTooltip(nodeTextArr[i]);
+				nodeTextArr[i] = tickersCreated[nodeTextArr[i]];
 			}
 		}
 
 		if (tickerFound) {
-			var newNodeText = nodeTextArr.join()
-
+			var newNodeText = nodeTextArr.join("");
+			currTextNode.parentNode.textContent = newNodeText;
+			console.log(newNodeText);
 		}
 	}
+
+	// initializes all tooltips in DOM
+	//$('[data-toggle="tooltip"]').tooltip();
 });
+
+function makeTickerTooltip(tickerName) {
+	var tooltip = document.createElement("a");
+	tooltip.setAttribute("href", "#");
+	tooltip.setAttribute("data-toggle", "tooltip");
+	var tooltipContent = document.createTextNode(tickerName);
+	tooltip.appendChild(tooltipContent);
+	return tooltip;
+}
 /*
 - get the innermost text node with the text content
 - 
