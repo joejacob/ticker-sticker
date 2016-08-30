@@ -4,7 +4,7 @@ var tickers = [
 
 document.addEventListener('DOMContentLoaded', function() {
 	// stores any tickers that have already been discovered
-	var tickersCreated = new Object();
+	var tickerStickersCreated = new Object();
 
 	// search through DOM for text nodes
 	var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		var nodeTextArr = nodeText.split(/(\s+)/);
 		// console.log("went to next node and wordIndex is: " + wordIndex);
 		for(var i = 0; i < nodeTextArr.length; i++) {
-			if (nodeTextArr[i] in tickersCreated || tickers.indexOf(nodeTextArr[i]) > -1) {
-				//tickerFound = true;
+			if (nodeTextArr[i] in tickerStickersCreated || tickers.indexOf(nodeTextArr[i]) > -1) {
+				// tickerFound = true;
 				// console.log("parent before split:");
 				// console.log(currTextNodeParent);
 				// split the current text node
@@ -32,17 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				var restCurrTextNode = currTextNode.splitText(wordIndex + nodeTextArr[i].length);	// textnode up until right after ticker
 				var tickerTextNode = currTextNode.splitText(wordIndex);	// textnode up until right before ticker
 
-				// make the new tooltip
-				// var tickerTooltip;
+				// make the new tickerSticker
 				var tickerSticker;
-				if (tickersCreated[nodeTextArr[i]] != null) {
-					// tickerTooltip = tickersCreated[nodeTextArr[i]].cloneNode(true);
-					tickerSticker = tickersCreated[nodeTextArr[i]].cloneNode(true);
+				if (tickerStickersCreated[nodeTextArr[i]] != null) {
+					tickerSticker = tickerStickersCreated[nodeTextArr[i]].cloneNode(true);
 				} else {
-					// tickerTooltip = makeTickerTooltip(nodeTextArr[i]);
 					tickerSticker = makeTickerSticker(nodeTextArr[i]);
 				}
-				//var tickerTooltip = tickersCreated[nodeTextArr[i]] || makeTickerTooltip(nodeTextArr[i]);
+				//var tickerTooltip = tickerStickersCreated[nodeTextArr[i]] || makeTickerTooltip(nodeTextArr[i]);
 
 				// replace the old text node
 				try {
@@ -54,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log(tickerTooltip);
 					// console.log("textnode:");
 					// console.log(tickerTextNode);
-					// currTextNodeParent.replaceChild(tickerTooltip, tickerTextNode);
 					currTextNodeParent.replaceChild(tickerSticker, tickerTextNode);
 				}
 				catch(err) {
@@ -64,8 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log("parent after:");
 					// console.log(currTextNodeParent);
 
-				// tickersCreated[nodeTextArr[i]] = tickerTooltip;
-				tickersCreated[nodeTextArr[i]] = tickerSticker;
+				tickerStickersCreated[nodeTextArr[i]] = tickerSticker;
 
 				currTextNode = restCurrTextNode;
 				wordIndex = 0;
@@ -75,34 +70,40 @@ document.addEventListener('DOMContentLoaded', function() {
 			wordIndex += nodeTextArr[i].length;
 		}
 	}
-
-	// initializes all tooltips in DOM
- 	$('[data-toggle="tooltip"]').tooltip();
-	// $('.hasTooltip').tooltip();
 });
 
-// function makeTickerTooltip(tickerName) {
-// 	var tooltip = document.createElement("a");
-// 	tooltip.setAttribute("href", "#");
-// 	tooltip.setAttribute("data-toggle", "tooltip");
-// 	//tooltip.className += " tooltip";
-// 	var tooltipContent = document.createTextNode(tickerName);
-// 	//tooltipContent.className += " tooltiptext";
-// 	tooltip.appendChild(tooltipContent);
-// 	return tooltip;
-// }
 
 function makeTickerSticker(tickerName) {
 	var stickerParent = document.createElement("a");
 	stickerParent.classList.add("stickerParent");
 	stickerParent.setAttribute("href", "#");
-
-	var stickerParentText = document.createTextNode(tickerName);
+	stickerParent.textContent = tickerName;
 
 	var sticker = document.createElement("div");
 	sticker.classList.add("sticker");
 
-	stickerParent.appendChild(stickerParentText);
+	var stickerTabPane = document.createElement("ul");
+	stickerTabPane.classList.add("nav", "nav-tabs");
+	stickerTabPane.setAttribute("data-tabs", "tabs");
+
+	var mainStockTab = document.createElement("li");
+	mainStockTab.classList.add("active");
+	var mainStockTabName = document.createElement("a");
+	mainStockTabName.setAttribute("data-toggle", "tab");
+	mainStockTabName.setAttribute("href", "#General");
+	mainStockTabName.textContent = "General";
+	mainStockTab.appendChild(mainStockTabName);
+	stickerTabPane.appendChild(mainStockTab);
+	
+	var otherStockTab = document.createElement("li");
+	var otherStockTabName = document.createElement("a");
+	otherStockTabName.setAttribute("data-toggle", "tab");
+	otherStockTabName.setAttribute("href", "#Other");
+	otherStockTabName.textContent = "Other";
+	otherStockTab.appendChild(otherStockTabName);
+	stickerTabPane.appendChild(otherStockTab);
+
+	sticker.appendChild(stickerTabPane);
 	stickerParent.appendChild(sticker);
 	return stickerParent;
 }
