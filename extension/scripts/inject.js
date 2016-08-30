@@ -33,11 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				var tickerTextNode = currTextNode.splitText(wordIndex);	// textnode up until right before ticker
 
 				// make the new tooltip
-				var tickerTooltip;
+				// var tickerTooltip;
+				var tickerSticker;
 				if (tickersCreated[nodeTextArr[i]] != null) {
-					tickerTooltip = tickersCreated[nodeTextArr[i]].cloneNode(true);
+					// tickerTooltip = tickersCreated[nodeTextArr[i]].cloneNode(true);
+					tickerSticker = tickersCreated[nodeTextArr[i]].cloneNode(true);
 				} else {
-					tickerTooltip = makeTickerTooltip(nodeTextArr[i]);
+					// tickerTooltip = makeTickerTooltip(nodeTextArr[i]);
+					tickerSticker = makeTickerSticker(nodeTextArr[i]);
 				}
 				//var tickerTooltip = tickersCreated[nodeTextArr[i]] || makeTickerTooltip(nodeTextArr[i]);
 
@@ -51,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log(tickerTooltip);
 					// console.log("textnode:");
 					// console.log(tickerTextNode);
-					currTextNodeParent.replaceChild(tickerTooltip, tickerTextNode);
+					// currTextNodeParent.replaceChild(tickerTooltip, tickerTextNode);
+					currTextNodeParent.replaceChild(tickerSticker, tickerTextNode);
 				}
 				catch(err) {
 					console.log(err);
@@ -60,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log("parent after:");
 					// console.log(currTextNodeParent);
 
-				tickersCreated[nodeTextArr[i]] = tickerTooltip;
+				// tickersCreated[nodeTextArr[i]] = tickerTooltip;
+				tickersCreated[nodeTextArr[i]] = tickerSticker;
 
 				currTextNode = restCurrTextNode;
 				wordIndex = 0;
@@ -69,23 +74,35 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 			wordIndex += nodeTextArr[i].length;
 		}
-
-		// if (tickerFound) {
-		// 	var newNodeText = nodeTextArr.join("");
-		// 	currTextNode.parentNode.textContent = newNodeText;
-		// 	console.log(newNodeText);
-		// }
 	}
 
 	// initializes all tooltips in DOM
-	$('[data-toggle="tooltip"]').tooltip();
+ 	$('[data-toggle="tooltip"]').tooltip();
+	// $('.hasTooltip').tooltip();
 });
 
-function makeTickerTooltip(tickerName) {
-	var tooltip = document.createElement("a");
-	tooltip.setAttribute("href", "#");
-	tooltip.setAttribute("data-toggle", "tooltip");
-	var tooltipContent = document.createTextNode(tickerName);
-	tooltip.appendChild(tooltipContent);
-	return tooltip;
+// function makeTickerTooltip(tickerName) {
+// 	var tooltip = document.createElement("a");
+// 	tooltip.setAttribute("href", "#");
+// 	tooltip.setAttribute("data-toggle", "tooltip");
+// 	//tooltip.className += " tooltip";
+// 	var tooltipContent = document.createTextNode(tickerName);
+// 	//tooltipContent.className += " tooltiptext";
+// 	tooltip.appendChild(tooltipContent);
+// 	return tooltip;
+// }
+
+function makeTickerSticker(tickerName) {
+	var stickerParent = document.createElement("a");
+	stickerParent.classList.add("stickerParent");
+	stickerParent.setAttribute("href", "#");
+
+	var stickerParentText = document.createTextNode(tickerName);
+
+	var sticker = document.createElement("div");
+	sticker.classList.add("sticker");
+
+	stickerParent.appendChild(stickerParentText);
+	stickerParent.appendChild(sticker);
+	return stickerParent;
 }
