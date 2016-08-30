@@ -22,3 +22,7 @@
   box-sizing: border-box;
   background-color: white;
 }
+
+.nav-tabs {
+  font-size: 10px;
+}

@@ -81,10 +81,13 @@ function makeTickerSticker(tickerName) {
 
 	var sticker = document.createElement("div");
 	sticker.classList.add("sticker");
+	stickerParent.appendChild(sticker);
 
+	// making the tabpane frame
 	var stickerTabPane = document.createElement("ul");
-	stickerTabPane.classList.add("nav", "nav-tabs");
+	stickerTabPane.classList.add("nav", "nav-tabs", "nav-justified");
 	stickerTabPane.setAttribute("data-tabs", "tabs");
+	sticker.appendChild(stickerTabPane);
 
 	var mainStockTab = document.createElement("li");
 	mainStockTab.classList.add("active");
@@ -102,8 +105,23 @@ function makeTickerSticker(tickerName) {
 	otherStockTabName.textContent = "Other";
 	otherStockTab.appendChild(otherStockTabName);
 	stickerTabPane.appendChild(otherStockTab);
+	
+	// creating the tabpane content
+	var stickerTabPaneContent = document.createElement("div");
+	stickerTabPaneContent.classList.add("tab-content");
+	sticker.appendChild(stickerTabPaneContent);
 
-	sticker.appendChild(stickerTabPane);
-	stickerParent.appendChild(sticker);
+	var mainStockTabContent = document.createElement("div");
+	mainStockTabContent.classList.add("tab-pane", "in", "active");
+	mainStockTabContent.setAttribute("id", "General");
+	mainStockTabContent.textContent = "General stuff";
+	stickerTabPaneContent.appendChild(mainStockTabContent);
+
+	var otherStockTabContent = document.createElement("div");
+	otherStockTabContent.classList.add("tab-pane");
+	otherStockTabContent.setAttribute("id", "Other");
+	otherStockTabContent.textContent = "Other stuff";
+	stickerTabPaneContent.appendChild(otherStockTabContent);
+
 	return stickerParent;
 }
