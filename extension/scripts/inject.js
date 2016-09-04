@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var wordIndex = 0;
 
 		// iterate through each word of the text node to look for stock tickers
-		var nodeTextArr = nodeText.split(/(\s+)/);
+		var nodeTextArr = nodeText.split(/(\s+\(?.+\)?\s+)/);
 		// console.log("went to next node and wordIndex is: " + wordIndex);
 		for(var i = 0; i < nodeTextArr.length; i++) {
 			var scrubbedText = nodeTextArr[i].replace(/\(/g, "")
@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log(tickerTooltip);
 					// console.log("textnode:");
 					// console.log(tickerTextNode);
+					tickerSticker.childNodes[0].textContent = nodeTextArr[i];
 					currTextNodeParent.replaceChild(tickerSticker, tickerTextNode);
 				}
 				catch(err) {
@@ -112,17 +113,22 @@ function makeTickerSticker(tickerName) {
 	stickerTabPaneContent.appendChild(mainStockTabContent);
 
 	// getting the ticker data
-	var xmlhttp = new XMLHttpRequest();
-	var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22" + tickerName + "%22%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var tickerData = JSON.parse(this.responseText);
-			var tickerDataTable = makeTickerDataTable(tickerData);
-			mainStockTabContent.appendChild(tickerDataTable);
-		}
-	};
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
+	// only do this on hover
+	$(stickerParent).mouseover( function(event) {
+		var xmlhttp = new XMLHttpRequest();
+		var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22" + tickerName + "%22%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var tickerData = JSON.parse(this.responseText);
+				var tickerDataTable = makeTickerDataTable(tickerData);
+				mainStockTabContent.appendChild(tickerDataTable);
+			}
+		};
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+		$(this).unbind(event);
+	});
 
 	return stickerParent;
 }
