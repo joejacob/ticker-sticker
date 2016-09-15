@@ -12,27 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	while(walk.nextNode()) {
 		var currTextNode = walk.currentNode;
 		var currTextNodeParent = currTextNode.parentNode;
-		//var tickerFound = false;
 		var wordIndex = 0;
 
 		// iterate through each word of the text node to look for stock tickers
 		var nodeTextArr = currTextNode.textContent.split(/(\s+)/);
-		// console.log("went to next node and wordIndex is: " + wordIndex);
 		for(var i = 0; i < nodeTextArr.length; i++) {
 			var scrubbedText = nodeTextArr[i].replace(/\(/g, "")
 											 .replace(/\)/g, "")
 											 .replace(/\$/g, "");
 			if (scrubbedText in tickerStickersCreated || tickers.indexOf(scrubbedText) > -1) {
-				// tickerFound = true;
-				// console.log("parent before split:");
-				// console.log(currTextNodeParent);
-				// // split the current text node
-				// console.log("text to be split:");
-				// console.log(currTextNode);
-				// console.log(currTextNode.textContent);
-				// console.log(currTextNode.textContent.length);
-				// console.log(nodeTextArr);
-				// console.log("i: " + i + " " + wordIndex + " " + nodeTextArr[i].length + " " + nodeTextArr[i]);
 				var restCurrTextNode = currTextNode.splitText(wordIndex + nodeTextArr[i].length);	// textnode up until right after ticker
 				var tickerTextNode = currTextNode.splitText(wordIndex);	// textnode up until right before ticker
 
@@ -44,26 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
 					tickerSticker = makeTickerSticker(scrubbedText);
 				}
 
-				// replace text content with non-scrubbed text
-				//tickerSticker.childNodes[0].textContent = nodeTextArr[i];
-
 				// replace the old text node
 				try {
-					// console.log("parent before:");
-					// console.log(currTextNodeParent);
-					// console.log("parent before children:");
-					// console.log(currTextNodeParent.childNodes);
-					// console.log("tooltip:");
-					// console.log(tickerSticker);
-					// console.log("textnode:");
-					// console.log(tickerTextNode);
 					currTextNodeParent.replaceChild(tickerSticker, tickerTextNode);
 				} catch(err) {
 					console.log(err);
 				}
-					// console.log("replace child failure");
-					// console.log("parent after:");
-					// console.log(currTextNodeParent);
 
 				tickerStickersCreated[scrubbedText] = tickerSticker;	// save ticker for next time
 				currTextNode = restCurrTextNode;	// update textnode to reflect the next part of it
@@ -157,6 +131,11 @@ function makeTickerDataTable(tickerData) {
 	tableRowName.textContent = "Name: " + quote["Name"];
 	tableDiv.appendChild(tableRowName);
 
+	var tableRowSymbol = document.createElement("tr");
+	tableRowSymbol.classList.add("tr");
+	tableRowSymbol.textContent = "Name: " + quote["Symbol"] + " (" + quote["ChangeInPercent"] + ")";
+	tableDiv.appendChild(tableRowSymbol);
+
 	var tableRowOpen = document.createElement("tr");
 	tableRowOpen.classList.add("tr");
 	tableRowOpen.textContent = "Open: " + quote["Open"];
@@ -208,18 +187,4 @@ function makeTickerDataTable(tickerData) {
 	tableDiv.appendChild(tableRowEPS);
 
 	return tableDiv;
-	//
-	//  actual company name quote["name"]
-	//  quote["Bid"]
-	//  quote["Ask"]
-	// quote["ChangeInPercent"]
-	//  quote["EBITDA"]
-	//  quote["EarningsShare"]
-	//  quote["MarketCapitalization"]
-	//  quote["Volume"]
-	// quote["Symbol"]
-	//  quote["Open"]
-	//  quote["PreviousClose"]
-	//  quote["DaysRange"]
-	//  quote["YearRange"]
 }
