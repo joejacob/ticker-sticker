@@ -12,24 +12,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	while(walk.nextNode()) {
 		var currTextNode = walk.currentNode;
 		var currTextNodeParent = currTextNode.parentNode;
-		var nodeText = currTextNode.parentNode.textContent;
-
+		// var nodeText = currTextNode.parentNode.textContent;
+		var nodeText = currTextNode.textContent;
 		//var tickerFound = false;
 		var wordIndex = 0;
 
 		// iterate through each word of the text node to look for stock tickers
-		var nodeTextArr = nodeText.split(/(\s+\(?.+\)?\s+)/);
+		var nodeTextArr = nodeText.split(/(\s+)/);
 		// console.log("went to next node and wordIndex is: " + wordIndex);
 		for(var i = 0; i < nodeTextArr.length; i++) {
 			var scrubbedText = nodeTextArr[i].replace(/\(/g, "")
-											 .replace(/\)/g, "");
+											 .replace(/\)/g, "")
+											 .replace(/\↵/g, "")
+											 .replace(/\$/g, "");
 			if (scrubbedText in tickerStickersCreated || tickers.indexOf(scrubbedText) > -1) {
 				// tickerFound = true;
 				// console.log("parent before split:");
 				// console.log(currTextNodeParent);
-				// split the current text node
+				// // split the current text node
 				// console.log("text to be split:");
 				// console.log(currTextNode);
+				// console.log(currTextNode.textContent);
+				// console.log(currTextNode.textContent.length);
+				// console.log(nodeTextArr);
 				// console.log("i: " + i + " " + wordIndex + " " + nodeTextArr[i].length + " " + nodeTextArr[i]);
 				var restCurrTextNode = currTextNode.splitText(wordIndex + nodeTextArr[i].length);	// textnode up until right after ticker
 				var tickerTextNode = currTextNode.splitText(wordIndex);	// textnode up until right before ticker
@@ -41,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				} else {
 					tickerSticker = makeTickerSticker(scrubbedText);
 				}
-				//var tickerTooltip = tickerStickersCreated[nodeTextArr[i]] || makeTickerTooltip(nodeTextArr[i]);
+
+				// replace text content with non-scrubbed text
+				//tickerSticker.childNodes[0].textContent = nodeTextArr[i];
 
 				// replace the old text node
 				try {
@@ -50,13 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					// console.log("parent before children:");
 					// console.log(currTextNodeParent.childNodes);
 					// console.log("tooltip:");
-					// console.log(tickerTooltip);
+					// console.log(tickerSticker);
 					// console.log("textnode:");
 					// console.log(tickerTextNode);
-					tickerSticker.childNodes[0].textContent = nodeTextArr[i];
 					currTextNodeParent.replaceChild(tickerSticker, tickerTextNode);
-				}
-				catch(err) {
+				} catch(err) {
 					console.log(err);
 				}
 					// console.log("replace child failure");
@@ -69,8 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				wordIndex = 0;
 				walk.nextNode();	// treewalker is dynamic so this accounts for the two newly created nodes
 				walk.nextNode();
+			} else {
+				wordIndex += nodeTextArr[i].length;
 			}
-			wordIndex += nodeTextArr[i].length;
 		}
 	}
 });
@@ -109,11 +115,9 @@ function makeTickerSticker(tickerName) {
 	var mainStockTabContent = document.createElement("div");
 	mainStockTabContent.classList.add("tab-pane", "active");
 	mainStockTabContent.setAttribute("id", "General");
-	//mainStockTabContent.textContent = "General stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuffGeneral stuff";
 	stickerTabPaneContent.appendChild(mainStockTabContent);
 
-	// getting the ticker data
-	// only do this on hover
+	// getting the ticker data on first hover
 	$(stickerParent).mouseover( function(event) {
 		var xmlhttp = new XMLHttpRequest();
 		var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22" + tickerName + "%22%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
@@ -202,6 +206,7 @@ function makeTickerDataTable(tickerData) {
 	tableRowEPS.classList.add("tr");
 	tableRowEPS.textContent = "EPS: " + quote["EarningsShare"];
 	tableDiv.appendChild(tableRowEPS);
+
 	return tableDiv;
 	//
 	//  actual company name quote["name"]
