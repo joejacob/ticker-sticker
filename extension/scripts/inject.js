@@ -125,6 +125,27 @@ function makeTickerDataTable(tickerData) {
 	tickerTable.classList.add("table");
 	tableDiv.appendChild(tickerTable);
 
+	var dataMap =    {"Name":"Name", 
+					  "Symbol": "Ticker",
+					  "ChangeInPercent":"Percent Change",
+					  "Open":"Open", 
+					  "Close":"Close",
+					  "Bid":"Bid",
+					  "Ask":"Ask",
+					  "Day's Range":"DaysRange",
+					  "YTD Low":"YearRange",
+					  "Market Cap":"MarketCapitalization",
+					  "Volume":"Volume",
+					  "EBITDA":"EBITDA",
+					  "EPS":"EarningsShare"};
+	
+	// for (key in dataMap) {
+	// 	var tableRow = document.createElement("tr");
+	// 	tableRow.classList.add("tr");
+	// 	tableRow.textContent = dataMap[key] + ": " + quote[key];
+	// 	tableDiv.appendChild(tableRow);
+	// }
+
 	// table rows
 	var tableRowName = document.createElement("tr");
 	tableRowName.classList.add("tr");

@@ -6,3 +6,5 @@ TODO:
 - potentially cache tickers in a database so they can be used for other webpages later
 - have the extension be triggered if the dom has changed
 - turn on and off by clicking the browser action
+- update z-axis of sticker to override any other popups
+- figure out why facebook is fucked up
