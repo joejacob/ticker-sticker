@@ -10,8 +10,9 @@
   },
   "default_locale": "en",
   "background": {
-    "page": "background.html",
-    "persistent": true
+    "scripts": ["js/underscore-1.8.3.min.js",
+                "js/jquery-3.1.0.min.js"],
+    "persistent": false
   },
   "permissions": [
     "debugger",
@@ -25,7 +26,9 @@
         "http://*/*", 
         "https://*/*"
       ],
-      "js": ["scripts/inject.js"]
+      "css": ["css/bootstrap.min.css", "css/custom.css"],
+      "js": ["js/jquery-3.1.0.min.js", "js/bootstrap.min.js", "scripts/inject.js"],
+      "run_at": "document_start"
     }
   ]
 }
