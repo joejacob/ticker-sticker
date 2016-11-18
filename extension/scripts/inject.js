@@ -3,6 +3,15 @@ var tickers = [
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
+	// make sure that extension is on
+	chrome.storage.sync.get('state', function(result) {
+		if(result.state == '1') {
+			stickerPage();
+		}
+	});
+});
+
+function stickerPage() {
 	// stores any tickers that have already been discovered
 	var tickerStickersCreated = new Object();
 
@@ -49,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 	}
-});
+}
 
 
 function makeTickerSticker(tickerName) {

@@ -1,15 +1,20 @@
 var currIcon = 0;
+updateState(null);
 
 // updates icon image
 function updateIcon() {
-	chrome.browserAction.setIcon({path: "./../icons/ticker_sticker_" + currIcon + ".png"});
 	currIcon = (currIcon + 1) % 2;
-
+	chrome.browserAction.setIcon({path: "./../icons/ticker_sticker_" + currIcon + ".png"});
 }
 
 // turning extension on and off
 chrome.browserAction.onClicked.addListener(function(tab) {
-	updateIcon();
+	updateState(tab);
 });
 
-updateIcon();
+function updateState(tab) {
+	updateIcon();
+	chrome.storage.sync.set({'state': currIcon}, function() {
+		message('Toggled on/off');
+	});
+}
