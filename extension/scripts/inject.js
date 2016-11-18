@@ -139,73 +139,14 @@ function makeTickerDataTable(tickerData) {
 					  "EBITDA":"EBITDA",
 					  "EPS":"EarningsShare"};
 	
-	// for (key in dataMap) {
-	// 	var tableRow = document.createElement("tr");
-	// 	tableRow.classList.add("tr");
-	// 	tableRow.textContent = dataMap[key] + ": " + quote[key];
-	// 	tableDiv.appendChild(tableRow);
-	// }
-
 	// table rows
-	var tableRowName = document.createElement("tr");
-	tableRowName.classList.add("tr");
-	tableRowName.textContent = "Name: " + quote["Name"];
-	tableDiv.appendChild(tableRowName);
-
-	var tableRowSymbol = document.createElement("tr");
-	tableRowSymbol.classList.add("tr");
-	tableRowSymbol.textContent = "Name: " + quote["Symbol"] + " (" + quote["ChangeInPercent"] + ")";
-	tableDiv.appendChild(tableRowSymbol);
-
-	var tableRowOpen = document.createElement("tr");
-	tableRowOpen.classList.add("tr");
-	tableRowOpen.textContent = "Open: " + quote["Open"];
-	tableDiv.appendChild(tableRowOpen);
-
-	var tableRowClose = document.createElement("tr");
-	tableRowClose.classList.add("tr");
-	tableRowClose.textContent = "Close: " + quote["PreviousClose"];
-	tableDiv.appendChild(tableRowClose);
-
-	var tableRowBid = document.createElement("tr");
-	tableRowBid.classList.add("tr");
-	tableRowBid.textContent = "Bid: " + quote["Bid"];
-	tableDiv.appendChild(tableRowBid);
-
-	var tableRowAsk = document.createElement("tr");
-	tableRowAsk.classList.add("tr");
-	tableRowAsk.textContent = "Ask: " + quote["Ask"];
-	tableDiv.appendChild(tableRowAsk);
-
-	var tableRowDaysRange = document.createElement("tr");
-	tableRowDaysRange.classList.add("tr");
-	tableRowDaysRange.textContent = "Day's Range: " + quote["DaysRange"];
-	tableDiv.appendChild(tableRowDaysRange);
-
-	var tableRowYearRange = document.createElement("tr");
-	tableRowYearRange.classList.add("tr");
-	tableRowYearRange.textContent = "Year Range: " + quote["YearRange"];
-	tableDiv.appendChild(tableRowYearRange);
-
-	var tableRowMarketCap = document.createElement("tr");
-	tableRowMarketCap.classList.add("tr");
-	tableRowMarketCap.textContent = "Market Cap: " + quote["MarketCapitalization"];
-	tableDiv.appendChild(tableRowMarketCap);
-
-	var tableRowVolume = document.createElement("tr");
-	tableRowVolume.classList.add("tr");
-	tableRowVolume.textContent = "Volume: " + quote["Volume"];
-	tableDiv.appendChild(tableRowVolume);
-
-	var tableRowEBITDA = document.createElement("tr");
-	tableRowEBITDA.classList.add("tr");
-	tableRowEBITDA.textContent = "EBITDA: " + quote["EBITDA"];
-	tableDiv.appendChild(tableRowEBITDA);
-
-	var tableRowEPS = document.createElement("tr");
-	tableRowEPS.classList.add("tr");
-	tableRowEPS.textContent = "EPS: " + quote["EarningsShare"];
-	tableDiv.appendChild(tableRowEPS);
+	for (key in dataMap) {
+		var tableRow = document.createElement("tr");
+		tableRow.classList.add("tr");
+		tableRow.textContent = dataMap[key] + ": " + quote[key];
+		tableDiv.appendChild(tableRow);
+	}
+	
 
 	return tableDiv;
 }

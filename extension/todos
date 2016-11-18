@@ -8,3 +8,10 @@ TODO:
 - turn on and off by clicking the browser action
 - update z-axis of sticker to override any other popups
 - figure out why facebook is fucked up
+- suppress default hover-over ability
+- add full company names
+- add news headlines tab
+	- maybe change color of ticker based on sentiment analysis of news headlines
+	- use the financial news api?
+- add browser action ability to turn on and off
+- actually make a readme
