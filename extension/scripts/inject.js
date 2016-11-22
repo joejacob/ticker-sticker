@@ -6,12 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	// make sure that extension is on
 	chrome.storage.sync.get('state', function(result) {
 		if(result.state == '1') {
-			stickerPage();
+			console.log("stickerfying...");
+			stickerfyPage();
 		}
 	});
 });
 
-function stickerPage() {
+function stickerfyPage() {
 	// stores any tickers that have already been discovered
 	var tickerStickersCreated = new Object();
 

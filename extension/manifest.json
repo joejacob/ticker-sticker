@@ -30,6 +30,10 @@
         "http://*/*", 
         "https://*/*"
       ],
+      "exclude_matches": [
+        "http://www.facebook.com/*",
+        "https://www.facebook.com/*"
+      ],
       "css": ["css/bootstrap.min.css", "css/custom.css"],
       "js": ["js/jquery-3.1.0.min.js", "js/bootstrap.min.js", "scripts/inject.js"],
       "run_at": "document_start"
