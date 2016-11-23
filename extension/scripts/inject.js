@@ -112,16 +112,32 @@ function makeTickerSticker(tickerName) {
 
 function stickerHoverAction(event, tickerName, mainStockTabContent) {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22" + tickerName + "%22%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+	var url = "https://query.yahooapis.com/v1/public/yql?q=use%20%22https%3A%2F%2Fraw.githubusercontent.com%2Fyql%2Fyql-tables%2Fmaster%2Fyahoo%2Ffinance%2Fyahoo.finance.quotes.xml%22%20as%20quotes%3B%0Aselect%20*%20from%20quotes%20where%20symbol%20in%20(%22" + tickerName + "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
+	
+	// insert loading
+	var loadingDiv = createLoadingDiv();
+	mainStockTabContent.appendChild(loadingDiv);
+
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var tickerData = JSON.parse(this.responseText);
 			var tickerDataTable = makeTickerDataTable(tickerData);
-			mainStockTabContent.appendChild(tickerDataTable);
+			mainStockTabContent.replaceChild(tickerDataTable, loadingDiv);
 		}
 	};
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
+}
+
+function createLoadingDiv() {
+	var loadingDiv = document.createElement("div");
+	var centerDiv = document.createElement("center");
+	var loadingText = document.createElement("h1");
+	loadingText.textContent = "Loading...";
+	centerDiv.appendChild(loadingText);
+	loadingDiv.appendChild(centerDiv);
+	
+	return loadingDiv;
 }
 
 function makeTickerDataTable(tickerData) {
@@ -140,20 +156,25 @@ function makeTickerDataTable(tickerData) {
 
 	var dataMap =    {"Name":"Name", 
 					  "Symbol": "Ticker",
-					  "ChangeInPercent":"Percent Change",
+					  "ChangeinPercent":"Percent Change",
 					  "Open":"Open", 
 					  "Close":"Close",
 					  "Bid":"Bid",
 					  "Ask":"Ask",
-					  "Day's Range":"DaysRange",
-					  "YTD Low":"YearRange",
-					  "Market Cap":"MarketCapitalization",
+					  "DaysRange":"Day's Range",
+					  "YearRange":"YTD Low",
+					  "MarketCapitalization":"Market Cap",
 					  "Volume":"Volume",
 					  "EBITDA":"EBITDA",
-					  "EPS":"EarningsShare"};
+					  "EarningsShare":"EPS"};
 	
 	// table rows
 	for (key in dataMap) {
+		// account for undefined values
+		if (quote[key] == null) {
+			quote[key] = "N/A";
+		}
+
 		var tableRow = document.createElement("tr");
 		tableRow.classList.add("tr");
 		tableRow.textContent = dataMap[key] + ": " + quote[key];
