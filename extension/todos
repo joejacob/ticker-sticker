@@ -1,6 +1,5 @@
 TODO:
 - make the ticker box look nicer, better formatting
-- try to build a ticker check where $, (, and ) are preserved
 - optimize
 - figure out a better way to write html in javascript
 - potentially cache tickers in a database so they can be used for other webpages later
@@ -10,8 +9,14 @@ TODO:
 - figure out why facebook is fucked up
 - suppress default hover-over ability
 - add full company names
+	- got a list of it
 - add news headlines tab
 	- maybe change color of ticker based on sentiment analysis of news headlines
 	- use the financial news api?
-- add browser action ability to turn on and off
 - actually make a readme
+
+
+DONE:
+- add browser action ability to turn on and off
+	- weirdly still affects facebook so small workaround is to just not let the extension work on FB
+- try to build a ticker check where $, (, and ) are preserved
