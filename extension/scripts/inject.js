@@ -76,29 +76,31 @@ function makeTickerSticker(tickerName) {
 	stickerParent.appendChild(sticker);
 
 	// making the tabpane frame
-	var stickerTabPane = document.createElement("ul");
-	stickerTabPane.classList.add("nav", "nav-tabs", "nav-justified");
-	stickerTabPane.setAttribute("data-tabs", "tabs");
-	sticker.appendChild(stickerTabPane);
+	// var stickerTabPane = document.createElement("ul");
+	// stickerTabPane.classList.add("nav", "nav-tabs", "nav-justified");
+	// stickerTabPane.setAttribute("data-tabs", "tabs");
+	// sticker.appendChild(stickerTabPane);
 
-	var mainStockTab = document.createElement("li");
-	mainStockTab.classList.add("active");
-	var mainStockTabName = document.createElement("a");
-	mainStockTabName.setAttribute("data-toggle", "tab");
-	mainStockTabName.setAttribute("href", "#General");
-	mainStockTabName.textContent = "General";
-	mainStockTab.appendChild(mainStockTabName);
-	stickerTabPane.appendChild(mainStockTab);
+	// var mainStockTab = document.createElement("li");
+	// mainStockTab.classList.add("active");
+	// var mainStockTabName = document.createElement("a");
+	// mainStockTabName.setAttribute("data-toggle", "tab");
+	// mainStockTabName.setAttribute("href", "#General");
+	// mainStockTabName.textContent = "General";
+	// mainStockTab.appendChild(mainStockTabName);
+	// stickerTabPane.appendChild(mainStockTab);
 	
-	// creating the tabpane content
-	var stickerTabPaneContent = document.createElement("div");
-	stickerTabPaneContent.classList.add("tab-content");
-	sticker.appendChild(stickerTabPaneContent);
+	// // creating the tabpane content
+	// var stickerTabPaneContent = document.createElement("div");
+	// stickerTabPaneContent.classList.add("tab-content");
+	// sticker.appendChild(stickerTabPaneContent);
 
-	var mainStockTabContent = document.createElement("div");
-	mainStockTabContent.classList.add("tab-pane", "active");
-	mainStockTabContent.setAttribute("id", "General");
-	stickerTabPaneContent.appendChild(mainStockTabContent);
+	var mainStockTabContent = document.createElement('div');
+	mainStockTabContent.classList.add('stickerContent');
+	//mainStockTabContent.classList.add("tab-pane", "active");
+	//mainStockTabContent.setAttribute("id", "General");
+	//stickerTabPaneContent.appendChild(mainStockTabContent);
+	sticker.appendChild(mainStockTabContent);
 
 	// getting the ticker data on first hover
 	$( stickerParent ).mouseover( function(event) {

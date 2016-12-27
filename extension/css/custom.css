@@ -3,6 +3,7 @@
   text-decoration: none;
   position: relative;
   cursor: pointer;
+  padding-bottom: 5px;
 }
 
 .stickerParent > .sticker {
@@ -21,7 +22,11 @@
   border-radius: 3px;
   box-sizing: border-box;
   background-color: white;
-  overflow-x: scroll;
+  overflow: auto;
+}
+
+.stickerContent {
+  margin: 5px;
 }
 
 .nav-tabs {
@@ -29,5 +34,5 @@
 }
 
 .tr { 
-  font-size: 8px;
+  font-size: 9px;
 }

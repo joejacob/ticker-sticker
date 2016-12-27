@@ -6,6 +6,9 @@ TODO:
 - have the extension be triggered if the dom has changed
 - turn on and off by clicking the browser action
 - update z-axis of sticker to override any other popups
+	- instead need it to appear on the very top of the page
+- weird as fuck error when scrolling down
+	- https://www.quora.com/What-are-the-differences-between-java-and-ruby-as-well-as-their-web-based-counterparts-namely-JSP-vs-Rails
 - figure out why facebook is fucked up
 	- unsure; temp fix was to block it
 - suppress default hover-over ability
@@ -15,7 +18,11 @@ TODO:
 	- maybe change color of ticker based on sentiment analysis of news headlines
 	- use the financial news api?
 - actually make a readme
-
+- fucks up header on youtube
+	- maybe consider have this only work for <body>??
+- reddit comments don't seem to be scanned
+	- are they a part of an iframe or something?
+	
 
 DONE:
 - add browser action ability to turn on and off
