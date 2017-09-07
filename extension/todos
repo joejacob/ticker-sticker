@@ -11,7 +11,6 @@ TODO:
 	- https://www.quora.com/What-are-the-differences-between-java-and-ruby-as-well-as-their-web-based-counterparts-namely-JSP-vs-Rails
 - figure out why facebook is fucked up
 	- unsure; temp fix was to block it
-- suppress default hover-over ability
 - add full company names
 	- got a list of it
 - add news headlines tab
@@ -30,3 +29,4 @@ DONE:
 - try to build a ticker check where $, (, and ) are preserved
 - add loading message
 - more informative 'undefined' errors
+- suppress default hover-over ability
