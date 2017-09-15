@@ -1,18 +1,12 @@
 TODO:
 - make the ticker box look nicer, better formatting
 - optimize
-- figure out a better way to write html in javascript
-- potentially cache tickers in a database so they can be used for other webpages later
 - have the extension be triggered if the dom has changed
 - turn on and off by clicking the browser action
-- update z-axis of sticker to override any other popups
-	- instead need it to appear on the very top of the page
 - weird as fuck error when scrolling down
 	- https://www.quora.com/What-are-the-differences-between-java-and-ruby-as-well-as-their-web-based-counterparts-namely-JSP-vs-Rails
 - figure out why facebook is fucked up
 	- unsure; temp fix was to block it
-- add full company names
-	- got a list of it
 - add news headlines tab
 	- maybe change color of ticker based on sentiment analysis of news headlines
 	- use the financial news api?
@@ -21,7 +15,21 @@ TODO:
 	- maybe consider have this only work for <body>??
 - reddit comments don't seem to be scanned
 	- are they a part of an iframe or something?
-	
+- clean up injected scripts	
+
+api key:  D53CCNRXTN1WQVB3
+
+
+
+
+- build ticker sticker page
+- maybe make each ticker sticker into shadow dom
+- clean up dependencies
+- clean up code
+- fix on/off (the clear local storage for all tabs)
+- minify, run under google speed thing
+- add google analytics
+- PUBLISH
 
 DONE:
 - add browser action ability to turn on and off

@@ -8,11 +8,12 @@
     "48": "icons/ticker_sticker_1.png",
     "128": "icons/ticker_sticker_1.png"
   },
-  "default_locale": "en",
   "background": {
-    "scripts": ["js/underscore-1.8.3.min.js",
-                "js/jquery-3.1.0.min.js",
-                "scripts/background.js"],
+    "scripts": [
+      "js/jquery-3.1.0.min.js",
+      "js/mustache.min.js",
+      "scripts/background.js"
+    ],
     "persistent": false
   },
   "browser_action": {
@@ -24,18 +25,24 @@
     "http://*/*",
     "https://*/*"
   ],
+  "web_accessible_resources": [
+    "templates/ticker_sticker.html"
+  ],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "content_scripts": [
     {
       "matches": [
         "http://*/*", 
         "https://*/*"
       ],
-      "exclude_matches": [
-        "http://www.facebook.com/*",
-        "https://www.facebook.com/*"
+      "css": [
+        "css/custom.css"
       ],
-      "css": ["css/bootstrap.min.css", "css/custom.css"],
-      "js": ["js/jquery-3.1.0.min.js", "js/bootstrap.min.js", "scripts/inject.js"],
+      "js": [
+        "js/jquery-3.1.0.min.js",
+        "js/mustache.min.js",
+        "scripts/inject.js"
+      ],
       "run_at": "document_start"
     }
   ]
