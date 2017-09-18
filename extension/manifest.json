@@ -10,8 +10,6 @@
   },
   "background": {
     "scripts": [
-      "js/jquery-3.1.0.min.js",
-      "js/mustache.min.js",
       "scripts/background.js"
     ],
     "persistent": false
@@ -25,9 +23,6 @@
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": [
-    "templates/ticker_sticker.html"
-  ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "content_scripts": [
     {
@@ -36,7 +31,6 @@
         "https://*/*"
       ],
       "css": [
-        "css/custom.css"
       ],
       "js": [
         "js/jquery-3.1.0.min.js",

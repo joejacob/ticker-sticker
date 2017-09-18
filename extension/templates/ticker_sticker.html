@@ -1,9 +1,71 @@
+<style>
+.stickerParent {
+ 	text-decoration: none;
+  	position: relative;
+  	cursor: pointer;
+  	padding-bottom: 5px;
+}
+
+.stickerParent > .sticker {
+	display: none;
+}
+
+.stickerParent:hover > .sticker {
+ 	display: block;
+ 	z-index: 40;
+ 	position: absolute;
+ 	left: 0px;
+ 	margin-top: 2px;
+	height: 210px;
+	width: 350px;
+	border: 1px solid blue;
+  	border-radius: 3px;
+  	box-sizing: border-box;
+  	background-color: white;
+  	overflow: scroll;
+}
+
+.stickerContent {
+	color: black;
+  	margin: 5px;
+}
+
+.nav-tabs {
+  	font-size: 10px;
+}
+
+.tr { 
+  	font-size: 9px;
+}
+
+.stock-symbol {
+	color: grey;
+	font-size: 14pt;
+}
+
+.stock-price-line {
+	color: blue;
+}
+
+.stock-price {
+	font-size: 14pt;
+	color: blue;
+}
+
+h1 {
+	font-size: 16pt;
+	margin: 0;
+}
+
+hr {
+	margin: 0px;
+}
+</style>
+
 <div class='stickerContent'>
-	<h1>{{Name}}<h1>
-	<span>NYSE: {{Symbol}}</span>
-	<br><br>
-	<span><b>{{Open}}</b> USD {{Change}} ({{ChangeinPercent}})</span>
-	<br>
+	<h1>{{Name}} (<span class='stock-symbol'>NYSE: {{Symbol}}</span>)</h1>
+	<span class='stock-price-line'><b class='stock-price'>{{Open}}</b> USD {{Change}} ({{ChangeinPercent}})</span>
+	<hr>
 	<table>
 		<tr>
 			<td>Open</td>
@@ -24,16 +86,22 @@
 			<td>{{DividendYield}}</td>
 		</tr>
 		<tr>
-			<td>Volume</td>
-			<td>{{Volume}}</td>
-			<td>EBITDA</td>
-			<td>{{EBITDA}}</td>
+			<td>PEG Ratio</td>
+			<td>{{PEGRatio}}</td>
+			<td>Price to Sales</td>
+			<td>{{PriceSales}}</td>
 		</tr>
 		<tr>
 			<td>EPS</td>
 			<td>{{EarningsShare}}</td>
 			<td>SIR</td>
 			<td>{{ShortRatio}}</td>
+		</tr>
+		<tr>
+			<td>50-Day Mvg Avg</td>
+			<td>{{FiftydayMovingAverage}}</td>
+			<td>Price to Book</td>
+			<td>{{PriceBook}}</td>
 		</tr>
 	</table>
 </div>
